@@ -4,3 +4,4 @@ flask-pymongo
 python-dotenv
 pandas
 Flask-Authlib-Client
+requests
