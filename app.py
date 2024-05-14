@@ -50,6 +50,31 @@ def login():
         return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
     except:
         return"please Login"
+    
+
+
+@app.route('/gsignin')
+def gsignin():
+    try:
+        token = oauth.daviz.authorize_access_token()
+        session['user'] = token['userinfo']
+        user = session.get('user')
+        name=user['name']
+        email=user['email']
+        profile=user['picture']
+        # verify=user['email_verified']
+        query={'email_id':email}
+        doc ={'$set':{'email_id':email,'name':name,'profile':profile}}
+        db.user.update_one(query,doc,upsert=True)
+        return render_template('fileupload.html', user=name)
+    except MismatchingStateError:
+        flash('This action is not possible. Please try again.')
+        return render_template("home.html")
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return render_template("home.html")
   
 if __name__ =='__main__':  
     app.run(debug = True)  
