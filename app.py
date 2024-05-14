@@ -18,12 +18,38 @@ client=MongoClient(os.getenv('mongo_url'))
 app.config["MONGO_URI"] = os.getenv('mongo_url')
 db=client['Daviz']
 
+try:
+     
+
+    CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+    oauth = OAuth(app)
+    oauth.register(
+        name='daviz',
+        client_id=os.getenv('clientID'),
+        client_secret=os.getenv('clientsecret'),
+        server_metadata_url=CONF_URL,
+        client_kwargs={
+            'scope': 'openid email profile'
+        }
+    )
+
+
+
+except:
+     pass
 @app.route('/')
 def home():
         return render_template('home.html')
 @app.route('/login')
 def login():
-        return "Hii"
+    try:
+        if "user" in session:
+                user = session.get('user')
+                name=user['name']
+                return render_template('fileupload.html',user=name)   
+        return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
+    except:
+        return"please Login"
   
 if __name__ =='__main__':  
     app.run(debug = True)  
