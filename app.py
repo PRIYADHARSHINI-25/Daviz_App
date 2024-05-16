@@ -14,29 +14,29 @@ import os
 app = Flask(__name__)  
  
 
-client=MongoClient(os.getenv('mongo_url'))
-app.config["MONGO_URI"] = os.getenv('mongo_url')
+app.config["MONGO_URI"] = os.environ['mongo_url']
+# app.config["MONGO_URI"] = os.getenv('mongo_url')
+# client=MongoClient(os.getenv('mongo_url'))
+client=MongoClient(os.environ['mongo_url'])
 db=client['Daviz']
 
 try:
-     
-
     CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
     oauth = OAuth(app)
     oauth.register(
         name='daviz',
-        client_id=os.getenv('clientID'),
-        client_secret=os.getenv('clientsecret'),
+        client_id=os.environ['clientID'],
+        client_secret=os.environ['clientsecret'],
+        # client_secret=os.getenv('clientsecret'),
+        # client_id=os.getenv('clientID'),
         server_metadata_url=CONF_URL,
         client_kwargs={
             'scope': 'openid email profile'
         }
     )
-
-
-
 except:
-     pass
+     print("OAuth configuration error")
+
 @app.route('/')
 def home():
         return render_template('home.html')
