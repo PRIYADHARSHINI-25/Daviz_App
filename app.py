@@ -13,11 +13,11 @@ import os
 
 app = Flask(__name__)  
  
-
-app.config["MONGO_URI"] = os.environ['mongo_url']
-# app.config["MONGO_URI"] = os.getenv('mongo_url')
-# client=MongoClient(os.getenv('mongo_url'))
-client=MongoClient(os.environ['mongo_url'])
+app.secret_key=os.getenv('flask_secret')
+#app.config["MONGO_URI"] = os.environ['mongo_url']
+app.config["MONGO_URI"] = os.getenv('mongo_url')
+client=MongoClient(os.getenv('mongo_url'))
+#client=MongoClient(os.environ['mongo_url'])
 db=client['Daviz']
 
 try:
@@ -25,15 +25,16 @@ try:
     oauth = OAuth(app)
     oauth.register(
         name='daviz',
-        client_id=os.environ['clientID'],
-        client_secret=os.environ['clientsecret'],
-        # client_secret=os.getenv('clientsecret'),
-        # client_id=os.getenv('clientID'),
+        #client_id=os.environ['clientID'],
+        #client_secret=os.environ['clientsecret'],
+        client_secret=os.getenv('clientsecret'),
+        client_id=os.getenv('clientID'),
         server_metadata_url=CONF_URL,
         client_kwargs={
             'scope': 'openid email profile'
         }
     )
+    print(client)
 except:
      print("OAuth configuration error")
 
@@ -50,7 +51,7 @@ def login():
         else:
             return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
     except:
-        return"please Login"
+        return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
     
 
 
