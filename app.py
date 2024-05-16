@@ -47,7 +47,8 @@ def login():
                 user = session.get('user')
                 name=user['name']
                 return render_template('fileupload.html',user=name)   
-        return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
+        else:
+            return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
     except:
         return"please Login"
     
