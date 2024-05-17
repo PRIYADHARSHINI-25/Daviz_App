@@ -51,8 +51,8 @@ def login():
         else:
             return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
     except:
-        return oauth.daviz.authorize_redirect(redirect_uri='/gsignin')
-        # return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
+        # return oauth.daviz.authorize_redirect(redirect_uri='/gsignin')
+        return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
 @app.route('/dummy')
 def dummy():
         return "Hello"
