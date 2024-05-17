@@ -3,20 +3,16 @@ from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client.errors import MismatchingStateError
 from pymongo import MongoClient
 import os
-# Create a MongoClient to the running mong
-#from flask_pymongo import PyMongo,MongoClient
-#from dotenv import load_dotenv
+from gridfs import GridFS
+from charts import preprocess,chartvis
 #import pandas as pd
 #import os,gridfs
-#from charts import preprocess,chartvis
 
 app = Flask(__name__)  
  
 app.secret_key=os.getenv('flask_secret')
-#app.config["MONGO_URI"] = os.environ['mongo_url']
 app.config["MONGO_URI"] = os.getenv('mongo_url')
 client=MongoClient(os.getenv('mongo_url'))
-#client=MongoClient(os.environ['mongo_url'])
 db=client['Daviz']
 
 try:
@@ -33,13 +29,14 @@ try:
             'scope': 'openid email profile'
         }
     )
-    print(client)
 except:
      print("OAuth configuration error")
 
 @app.route('/')
 def home():
         return render_template('home.html')
+
+
 @app.route('/login')
 def login():
     try:
@@ -52,9 +49,6 @@ def login():
     except:
         redirect_uri=url_for('gsignin', _external=True)
         return oauth.daviz.authorize_redirect(redirect_uri=redirect_uri)
-@app.route('/dummy')
-def dummy():
-        return "Hello"
 
 
 @app.route('/gsignin')
@@ -74,6 +68,34 @@ def gsignin():
     except MismatchingStateError:
         flash('This action is not possible. Please try again.')
         return render_template("home.html")
+    
+@app.route("/chart",methods=['GET','POST'])
+def chart():
+    try:
+        filegrid=GridFS(db)
+        user = session.get('user')
+        email=user['email']
+        if request.method=='POST':
+            csvfile=request.files['upload_file']
+            # content.seek(0)
+            content=csvfile.read()
+            csv_id=filegrid.put(content,filename=csvfile.filename)
+            db.user.update_one({'email_id':email},{'$set':{'files':csv_id}})
+            grid_out = filegrid.get(csv_id)
+            data = grid_out.read()
+            option,df=preprocess(data)
+            df_dict = df.to_dict(orient='records')
+            db.user.update_one({'email_id':email},{'$set':{'dataframe':df_dict}})
+            types=['line','bar','pie']
+            return render_template("input.html",option=option,types=types)
+    except:
+         return "Not working"
+
+
+@app.route('/visualize',methods=['GET','POST'])
+def visualize():
+        return "Visualization working"
+
 
 @app.route('/logout')
 def logout():
