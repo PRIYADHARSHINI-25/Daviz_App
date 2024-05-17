@@ -48,14 +48,10 @@ def login():
                 name=user['name']
                 return render_template('fileupload.html',user=name)   
         else:
-             redirect_uri=url_for('gsignin', _external=True)
-             return render_template('dummy.html',data=redirect_uri)
-            # return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
+            return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
     except:
-        # return oauth.daviz.authorize_redirect(redirect_uri='/gsignin')
         redirect_uri=url_for('gsignin', _external=True)
-        return render_template('dummy.html',data=redirect_uri)
-        # return oauth.daviz.authorize_redirect(redirect_uri=redirect_uri)
+        return oauth.daviz.authorize_redirect(redirect_uri=redirect_uri)
 @app.route('/dummy')
 def dummy():
         return "Hello"
