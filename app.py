@@ -3,7 +3,6 @@ from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client.errors import MismatchingStateError
 from pymongo import MongoClient
 import os
-
 # Create a MongoClient to the running mong
 #from flask_pymongo import PyMongo,MongoClient
 #from dotenv import load_dotenv
@@ -52,7 +51,9 @@ def login():
             return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
     except:
         # return oauth.daviz.authorize_redirect(redirect_uri='/gsignin')
-        return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
+        redirect_uri=url_for('gsignin', _external=True)
+        return render_template('dummy.html',data=redirect_uri)
+        # return oauth.daviz.authorize_redirect(redirect_uri=redirect_uri)
 @app.route('/dummy')
 def dummy():
         return "Hello"
