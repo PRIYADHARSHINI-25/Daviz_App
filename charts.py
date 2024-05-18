@@ -7,9 +7,10 @@ def preprocess(data):
     data_io=StringIO(data_str)
     df=pd.read_csv(data_io)
     options=list(df.columns)
+    y_opt = df.select_dtypes(include=['floating','int64'])
     # print(df.head())
     # charts=chart(df)
-    return(options,df)
+    return(options,df,y_opt)
 
 def chartvis(df,xvar,yvar,charttype):
     mychart=Chart.from_pandas(df,

@@ -50,7 +50,7 @@
       <label for="yaxis">Y-Axis</label>
       <select id="yaxis" name="yvar" required>
         <option value="" disabled selected>Select an option</option>
-        {% for opt in option %}
+        {% for opt in yoptions %}
         <option value="{{ opt }}">{{ opt }}</option>
         {% endfor %}
       </select>

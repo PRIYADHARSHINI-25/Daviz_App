@@ -82,12 +82,12 @@ def chart():
             db.user.update_one({'email_id':email},{'$set':{'files':csv_id}})
             grid_out = filegrid.get(csv_id)
             data = grid_out.read()
-            option,df=preprocess(data)
+            option,df,yopt=preprocess(data)
             # df_dict = df.to_dict(orient='records')
             df_dict=pickle.dumps(df)
             db.user.update_one({'email_id':email},{'$set':{'dataframe':df_dict}})
             types=['line','bar','pie']
-            return render_template("input.html",option=option,types=types)
+            return render_template("input.html",option=option,types=types,yoptions=yopt)
     except:
          return "Not working"
 
