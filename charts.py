@@ -1,10 +1,4 @@
-from flask import render_template
 from highcharts_core.chart import Chart
-from highcharts_core.options import HighchartsOptions
-# from highcharts_core.options.series.line import LineSeries
-from highcharts_core.options.series.bar import BarSeries
-import json
-import numpy as np
 import pandas as pd
 from io import StringIO
 
