@@ -92,7 +92,20 @@ def chart():
 
 @app.route('/visualize',methods=['GET','POST'])
 def visualize():
-        return "Visualization working"
+    user = session.get('user')
+    email=user['email']
+    document = db.user.find_one({'email_id': email})
+    df = pd.DataFrame(document['dataframe'])
+    if request.method=='POST':
+        charttype=request.form.get("chartType")
+        xvar=request.form.get("xvar")
+        yvar=request.form.get("yvar")
+        print(xvar, yvar, charttype)
+        if xvar and yvar and charttype:
+            chart_user= chartvis(df,xvar,yvar,charttype)
+            return render_template("chart.html",data=chart_user)
+        else:
+            return "Give valid input"
 
 
 @app.route('/logout')
