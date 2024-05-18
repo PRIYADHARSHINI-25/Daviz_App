@@ -6,4 +6,3 @@ pandas
 Flask-Authlib-Client
 requests
 highcharts-core
-highcharts-python
