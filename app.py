@@ -1,4 +1,4 @@
-from flask import Flask, url_for, session, render_template, redirect, request,flash
+from flask import Flask, url_for, session, render_template, request,flash
 from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client.errors import MismatchingStateError
 from pymongo import MongoClient
@@ -20,8 +20,6 @@ try:
     oauth = OAuth(app)
     oauth.register(
         name='daviz',
-        #client_id=os.environ['clientID'],
-        #client_secret=os.environ['clientsecret'],
         client_secret=os.getenv('clientsecret'),
         client_id=os.getenv('clientID'),
         server_metadata_url=CONF_URL,
@@ -69,32 +67,32 @@ def gsignin():
         flash('This action is not possible. Please try again.')
         return render_template("home.html")
     
-@app.route("/chart",methods=['GET','POST'])
-def chart():
-    try:
-        filegrid=GridFS(db)
-        user = session.get('user')
-        email=user['email']
-        if request.method=='POST':
-            csvfile=request.files['upload_file']
-            # content.seek(0)
-            content=csvfile.read()
-            csv_id=filegrid.put(content,filename=csvfile.filename)
-            db.user.update_one({'email_id':email},{'$set':{'files':csv_id}})
-            grid_out = filegrid.get(csv_id)
-            data = grid_out.read()
-            option,df=preprocess(data)
-            df_dict = df.to_dict(orient='records')
-            db.user.update_one({'email_id':email},{'$set':{'dataframe':df_dict}})
-            types=['line','bar','pie']
-            return render_template("input.html",option=option,types=types)
-    except:
-         return "Not working"
+# @app.route("/chart",methods=['GET','POST'])
+# def chart():
+#     try:
+#         filegrid=GridFS(db)
+#         user = session.get('user')
+#         email=user['email']
+#         if request.method=='POST':
+#             csvfile=request.files['upload_file']
+#             # content.seek(0)
+#             content=csvfile.read()
+#             csv_id=filegrid.put(content,filename=csvfile.filename)
+#             db.user.update_one({'email_id':email},{'$set':{'files':csv_id}})
+#             grid_out = filegrid.get(csv_id)
+#             data = grid_out.read()
+#             option,df=preprocess(data)
+#             df_dict = df.to_dict(orient='records')
+#             db.user.update_one({'email_id':email},{'$set':{'dataframe':df_dict}})
+#             types=['line','bar','pie']
+#             return render_template("input.html",option=option,types=types)
+#     except:
+#          return "Not working"
 
 
-@app.route('/visualize',methods=['GET','POST'])
-def visualize():
-        return "Visualization working"
+# @app.route('/visualize',methods=['GET','POST'])
+# def visualize():
+#         return "Visualization working"
 
 
 @app.route('/logout')
