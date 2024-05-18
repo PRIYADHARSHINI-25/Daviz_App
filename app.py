@@ -5,7 +5,7 @@ from pymongo import MongoClient
 import os
 from gridfs import GridFS
 from charts import preprocess,chartvis
-#import pandas as pd
+import pandas as pd
 #import os,gridfs
 
 app = Flask(__name__)  
