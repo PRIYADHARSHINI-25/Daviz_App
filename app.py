@@ -3,7 +3,7 @@ from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client.errors import MismatchingStateError
 from pymongo import MongoClient
 import os
-# from gridfs import GridFS
+from gridfs import GridFS
 from charts import preprocess,chartvis
 #import pandas as pd
 #import os,gridfs
