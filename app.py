@@ -67,32 +67,32 @@ def gsignin():
         flash('This action is not possible. Please try again.')
         return render_template("home.html")
     
-# @app.route("/chart",methods=['GET','POST'])
-# def chart():
-#     try:
-#         filegrid=GridFS(db)
-#         user = session.get('user')
-#         email=user['email']
-#         if request.method=='POST':
-#             csvfile=request.files['upload_file']
-#             # content.seek(0)
-#             content=csvfile.read()
-#             csv_id=filegrid.put(content,filename=csvfile.filename)
-#             db.user.update_one({'email_id':email},{'$set':{'files':csv_id}})
-#             grid_out = filegrid.get(csv_id)
-#             data = grid_out.read()
-#             option,df=preprocess(data)
-#             df_dict = df.to_dict(orient='records')
-#             db.user.update_one({'email_id':email},{'$set':{'dataframe':df_dict}})
-#             types=['line','bar','pie']
-#             return render_template("input.html",option=option,types=types)
-#     except:
-#          return "Not working"
+@app.route("/chart",methods=['GET','POST'])
+def chart():
+    try:
+        filegrid=GridFS(db)
+        user = session.get('user')
+        email=user['email']
+        if request.method=='POST':
+            csvfile=request.files['upload_file']
+            # content.seek(0)
+            content=csvfile.read()
+            csv_id=filegrid.put(content,filename=csvfile.filename)
+            db.user.update_one({'email_id':email},{'$set':{'files':csv_id}})
+            grid_out = filegrid.get(csv_id)
+            data = grid_out.read()
+            option,df=preprocess(data)
+            df_dict = df.to_dict(orient='records')
+            db.user.update_one({'email_id':email},{'$set':{'dataframe':df_dict}})
+            types=['line','bar','pie']
+            return render_template("input.html",option=option,types=types)
+    except:
+         return "Not working"
 
 
-# @app.route('/visualize',methods=['GET','POST'])
-# def visualize():
-#         return "Visualization working"
+@app.route('/visualize',methods=['GET','POST'])
+def visualize():
+        return "Visualization working"
 
 
 @app.route('/logout')
