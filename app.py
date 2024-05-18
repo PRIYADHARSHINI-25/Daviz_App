@@ -6,6 +6,7 @@ import os
 from gridfs import GridFS
 from charts import preprocess,chartvis
 import pandas as pd
+import pickle
 #import os,gridfs
 
 app = Flask(__name__)  
@@ -82,7 +83,8 @@ def chart():
             grid_out = filegrid.get(csv_id)
             data = grid_out.read()
             option,df=preprocess(data)
-            df_dict = df.to_dict(orient='records')
+            # df_dict = df.to_dict(orient='records')
+            df_dict=pickle.dumps(df)
             db.user.update_one({'email_id':email},{'$set':{'dataframe':df_dict}})
             types=['line','bar','pie']
             return render_template("input.html",option=option,types=types)
@@ -95,7 +97,8 @@ def visualize():
     user = session.get('user')
     email=user['email']
     document = db.user.find_one({'email_id': email})
-    df = pd.DataFrame(document['dataframe'])
+    df_bytes = (document['dataframe'])
+    df = pickle.loads(df_bytes)
     if request.method=='POST':
         charttype=request.form.get("chartType")
         xvar=request.form.get("xvar")
