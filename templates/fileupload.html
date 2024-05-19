@@ -27,7 +27,8 @@
         </a>
         <li class="nav">
           {% if user %}
-          <pre>{{user}}</pre>
+          {{user}}<br>
+          <img src="{{profile}}" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="img">
         </li>
         <a class="btn btn-color" href="/logout" role="button">Logout</a>
         {% else %}

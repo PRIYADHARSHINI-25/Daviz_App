@@ -3,11 +3,8 @@ from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client.errors import MismatchingStateError
 from pymongo import MongoClient
 import os
-from gridfs import GridFS
 from charts import preprocess,chartvis
-import pandas as pd
 import pickle
-#import os,gridfs
 
 app = Flask(__name__)  
  
@@ -29,7 +26,7 @@ try:
         }
     )
 except:
-     print("OAuth configuration error")
+     "OAuth configuration error"
 
 @app.route('/')
 def home():
@@ -42,7 +39,8 @@ def login():
         if "user" in session:
                 user = session.get('user')
                 name=user['name']
-                return render_template('fileupload.html',user=name)   
+                profile=user['profile']
+                return render_template('fileupload.html',user=name,profile=profile)   
         else:
             return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
     except:
@@ -63,7 +61,7 @@ def gsignin():
         query={'email_id':email}
         doc ={'$set':{'email_id':email,'name':name,'profile':profile}}
         db.user.update_one(query,doc,upsert=True)
-        return render_template('fileupload.html', user=name)
+        return render_template('fileupload.html', user=name,profile=profile)
     except MismatchingStateError:
         flash('This action is not possible. Please try again.')
         return render_template("home.html")
@@ -71,21 +69,15 @@ def gsignin():
 @app.route("/chart",methods=['GET','POST'])
 def chart():
     try:
-        filegrid=GridFS(db)
         user = session.get('user')
         email=user['email']
         if request.method=='POST':
             csvfile=request.files['upload_file']
             # content.seek(0)
             content=csvfile.read()
-            csv_id=filegrid.put(content,filename=csvfile.filename)
-            db.user.update_one({'email_id':email},{'$set':{'files':csv_id}})
-            grid_out = filegrid.get(csv_id)
-            data = grid_out.read()
-            option,df,yopt=preprocess(data)
-            # df_dict = df.to_dict(orient='records')
-            df_dict=pickle.dumps(df)
-            db.user.update_one({'email_id':email},{'$set':{'dataframe':df_dict}})
+            option,df,yopt=preprocess(content)
+            df_bytes=pickle.dumps(df)
+            db.user.update_one({'email_id':email},{'$set':{'dataframe':df_bytes}})
             types=['line','bar','pie']
             return render_template("input.html",option=option,types=types,yoptions=yopt)
     except:

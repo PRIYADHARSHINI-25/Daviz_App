@@ -19,6 +19,14 @@ body {
   color: #25b4b6 !important;
 }
 
+footer {
+  background-color: #dbdede;
+  text-align: center;
+  width:100vw;
+  position: absolute;
+  bottom: 0;
+}
+
 .btn-color {
   color: #ffffff !important;
   background-color: #25b4b6 !important;
