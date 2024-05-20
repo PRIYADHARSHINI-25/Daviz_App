@@ -15,48 +15,60 @@
     background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20201101/pngtree-scene-with-geometrical-forms-the-poster-model-minimal-background-render-image_452981.jpg');
     /* background-repeat: no-repeat; */
     background-attachment: fixed;
-    background-size: cover;
-  }
-  </style> -->
-    <nav class="navbar" style= "background-color:#dbdede;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">
-            <img src="/static/resources/Daviz-1.png" alt="Logo" width="100" height="24" class="d-inline-block align-text-bottom"></a>
-            <div class="navi">
-            <a href="#about">About Us</a>
-            <a href="#contact">Contact</a>
-            <a href="#explore">Explore</a>
-            
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <script>alert("{{ messages[0] }}");</script>
-            {% endif %}
-            {% endwith %}
+      background-size: cover;
+    }
+    </style> -->
+      <nav class="navbar" style= "background-color:#dbdede;">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+              <img src="/static/resources/Daviz-1.png" alt="Logo" width="100" height="24" class="d-inline-block align-text-bottom"></a>
+              <div class="navi">
+              <a href="#about">About Us</a>
+              <a href="#explore">Explore</a>
+              <a href="#contact">Contact</a>
+              
+              {% with messages = get_flashed_messages() %}
+              {% if messages %}
+              <script>alert("{{ messages[0] }}");</script>
+              {% endif %}
+              {% endwith %}
 
-            <li class="nav">{% if user %} <pre>{{user}}</pre></li>
-            <a class="btn btn-color" href="/logout" role="button">Logout</a>
-            {% else %}
-            <a class="btn btn-color" href="/login" role="button">Google Signup</a>
-            {% endif %}
+              <li class="nav">{% if user %} <pre>{{user}}</pre></li>
+              <a class="btn btn-color" href="/logout" role="button">Logout</a>
+              {% else %}
+              <li class="nav">
+              <a class="btn btn-color nav" href="/login" role="button">Google Signup</a></li>
+              {% endif %}
+            </div>
           </div>
-        </div>
-      </nav>
-      <div class="container">
-        <section id="about" class="section">
-            <h2>About Us</h2>
-            <p>Welcome to Daviz! We specialize in visualizing your data in a simple and efficient way.</p>
-        </section>
-
-        <section id="contact" class="section">
-            <h2>Contact</h2>
-            <div class="map"></div>
-            <p>Contact us at: info@daviz.com</p>
-        </section>
-
-        <section id="explore" class="section">
-            <h2>Explore</h2>
-            <p>Start exploring your data with Daviz today!</p>
-        </section></div>
+        </nav>
+        <div class="container">
+          <div class="card card-body text-center">
+                  <section id="about" class="section">
+                      <h2>About Us</h2>
+                      <p>Welcome to Daviz! Our mission is to make data visualization accessible and straightforward for everyone.
+                      Whether you're a business professional, a data analyst, or a student, our tool is designed to help you turn raw data into insightful visual representations with ease.
+                      At Daviz, we understand that data can be complex and overwhelming. 
+                      That's why we've created an intuitive platform that allows you to upload your CSV files and generate a variety of charts and graphs in just a few clicks. 
+                      Our goal is to empower you to explore and understand your data better, making informed decisions and discovering new insights.</p>
+                  </section>
+                  </div>
+                  <div class="card card-body">
+                  <section id="explore" class="section">
+                      <h2>Explore</h2>
+                      <p>Start exploring your data with Daviz today!</p>
+                  </section>
+                  </div>
+                  <div class="card card-body">
+                  <section id="contact" class="section">
+                      <h2>Contact</h2>
+                      <div class="map"></div>
+                      <p>We're continuously working to improve and expand our features to better serve our users.
+                      We invite you to join our community, explore the possibilities with Daviz, and take your data analysis to the next level.
+                      Thank you for choosing Daviz. Let's visualize a better future together!</p>
+                  </section>
+              </div>
+      </div>
     <footer> <p> &copy; 2024 Daviz. All rights reserved.</p> </footer>
 </body>
 </html>

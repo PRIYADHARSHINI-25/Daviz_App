@@ -37,9 +37,8 @@ footer {
   color: #ffffff !important;
   background-color: #5bc0c0 !important;
 }
-.container {
-  display: flex;
-  justify-content: space-between;
+.section {
+  width:fit-content
 }
 
 .links {
@@ -80,10 +79,9 @@ footer {
 .page-header {
   color: #25b4b6;
 }
-/* footer {
+footer {
     background-color: #dbdede;
     text-align: center;
     position: fixed;
     bottom: 0;
-    width: 150%;
-} */
+}

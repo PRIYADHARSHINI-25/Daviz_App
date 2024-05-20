@@ -27,8 +27,8 @@
         </a>
         <li class="nav">
           {% if user %}
-          {{user}}<br>
           <img src="{{profile}}" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="img">
+          <br> <pre>{{user}}</pre>
         </li>
         <a class="btn btn-color" href="/logout" role="button">Logout</a>
         {% else %}
@@ -73,7 +73,7 @@
                 fileInput.value = "";
                 setTimeout(function () {
                   alertDiv.style.display = "none"; // Hide the alert after 5 seconds
-                }, 2000);
+                }, 5000);
                 return false;
               } else {
                 alertDiv.style.display = "none"; // Hide the alert
