@@ -1,9 +1,24 @@
 body {
-  background-image: url("/static/resources/bg-3.jpg");
-  /* background-repeat: no-repeat; */
+  /* background-image: url("/static/resources/bg-3.jpg");  */
+  background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
+
+.hero {
+  background-image: url('/static/resources/hero1.jpeg');
+  background-position: center center;
+  background-repeat: no-repeat; 
+  background-size: cover;
+  min-height: 300px;
+  color:#ffffff
+  /* color:#84e1e1 */
+}
+/* @media only screen and (min-width: 400px) {
+  .hero {
+    background-image: url('/static/resources/bg-1.jpg');
+  }
+} */
 .navi{
   display: flex;
   margin-left:auto;
@@ -18,14 +33,11 @@ body {
 .navi a:hover {
   color: #25b4b6 !important;
 }
+/* .card{
+  background-image: url("/static/resources/bg-4.jpg");
+  background-position: center center; 
+}*/
 
-footer {
-  background-color: #dbdede;
-  text-align: center;
-  width:100vw;
-  position: absolute;
-  bottom: 0;
-}
 
 .btn-color {
   color: #ffffff !important;
@@ -37,10 +49,6 @@ footer {
   color: #ffffff !important;
   background-color: #5bc0c0 !important;
 }
-.section {
-  width:fit-content
-}
-
 .links {
   display: flex;
   gap: 10px;
@@ -61,6 +69,8 @@ footer {
 #bt {
   padding-top: 3%;
 }
+
+
 .dropcontainer {
   appearance: none;
   margin-top: 10px;
@@ -69,19 +79,14 @@ footer {
   width: 80%;
 }
 
-.card-body {
-  margin-left: 25%;
-  margin-top: 10%;
-  margin-right: 10%;
-  width: 10%;
-}
-
 .page-header {
   color: #25b4b6;
 }
+
 footer {
-    background-color: #dbdede;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
+  background-color: #d2d8d8;
+  text-align: center;
+  width:100vw;
+  position: fixed;
+  bottom: 0;
 }
