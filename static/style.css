@@ -71,13 +71,13 @@ body {
 }
 
 
-.dropcontainer {
+/* .dropcontainer {
   appearance: none;
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
   width: 80%;
-}
+} */
 
 .page-header {
   color: #25b4b6;

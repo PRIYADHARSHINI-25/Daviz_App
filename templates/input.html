@@ -12,49 +12,57 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <title>Chart Visualizer</title>
 </head>
-
+<style>
+  body{
+  background-image: url("/static/resources/input.jpg");
+  background-repeat: no-repeat;
+}
+  .card{
+    width:20%;
+    margin-left: 40%;
+    margin-top: 10%;
+  }
+  select{
+    width:100%
+  }
+</style>
 <body>
   <nav class="navbar" style="background-color: #dbdede">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
         <img src="/static/resources/Daviz-1.png" alt="Logo" width="100" height="24"
-          class="d-inline-block align-text-bottom" /></a>
-      <!-- <li class="nav">
-        {% if user %}
-        <pre>{{user}}</pre>
-      </li>
-      {% endif %} -->
+          class="d-inline-block align-text-bottom" /></a>+
     </div>
   </nav>
   <form action="/visualize" method="POST">
-    <div class="dropcontainer">
+    <div class="card card-body">
       <div class="chart">
-        <label for="chart">Chart</label>
+        <label for="chart">Chart</label><br>
         <select id="chart" name="chartType" required>
           <option value="" disabled selected>Select an option</option>
           {% for type in types %}
           <option value="{{ type }}">{{ type }}</option>
           {% endfor %}
         </select>
-      </div>
+      </div><br>
     <div class="xvar">
-      <label for="xaxis">X-Axis</label>
+      <label for="xaxis">X-Axis</label><br>
       <select id="xaxis" name="xvar" required>
         <option value="" disabled selected>Select an option</option>
         {% for opt in option %}
         <option value="{{ opt }}">{{ opt }}</option>
         {% endfor %}
       </select>
-    </div>
+    </div><br>
     <div class="yvar">
-      <label for="yaxis">Y-Axis</label>
+      <label for="yaxis">Y-Axis</label><br>
       <select id="yaxis" name="yvar" required>
         <option value="" disabled selected>Select an option</option>
         {% for opt in yoptions %}
         <option value="{{ opt }}">{{ opt }}</option>
         {% endfor %}
       </select>
-    </div>
+    </div><br>
     <button class="btn btn-success" type="submit">Submit</button>
     </div>
   </form>
