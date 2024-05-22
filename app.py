@@ -37,6 +37,9 @@ def home():
                 return render_template('fileupload.html',user=name,profile=profile)
     return render_template('home.html')
 
+@app.route("/chat")
+def chat():
+    return render_template("chat.html")
 
 @app.route('/login')
 def login():
