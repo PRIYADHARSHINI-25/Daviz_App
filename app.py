@@ -30,7 +30,12 @@ except:
 
 @app.route('/')
 def home():
-        return render_template('home.html')
+    if "user" in session:
+                user = session.get('user')
+                name=user['name']
+                profile=user['profile']
+                return render_template('fileupload.html',user=name,profile=profile)
+    return render_template('home.html')
 
 
 @app.route('/login')
