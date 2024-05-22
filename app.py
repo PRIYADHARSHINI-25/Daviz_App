@@ -33,7 +33,7 @@ def home():
     if "user" in session:
                 user = session.get('user')
                 name=user['name']
-                profile=user['profile']
+                profile=user['picture']
                 return render_template('fileupload.html',user=name,profile=profile)
     return render_template('home.html')
 
@@ -47,7 +47,7 @@ def login():
         if "user" in session:
                 user = session.get('user')
                 name=user['name']
-                profile=user['profile']
+                profile=user['picture']
                 return render_template('fileupload.html',user=name,profile=profile)   
         else:
             return oauth.daviz.authorize_redirect(redirect_uri=url_for('gsignin', _external=True))
