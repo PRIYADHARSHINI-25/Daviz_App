@@ -14,9 +14,10 @@
 </head>
 <style>
   body{
-  background-image: url("/static/resources/input.jpg");
-  background-repeat: no-repeat;
+    background-image: url("/static/resources/charts-bg.jpg");
+    background-repeat: no-repeat;
 }
+
   .card{
     width:20%;
     margin-left: 40%;
@@ -24,6 +25,11 @@
   }
   select{
     width:100%
+  }
+  label{
+    font-family:'cambria bold', monospace;
+    font-size: medium;
+    font-weight: 500;
   }
 </style>
 <body>
@@ -63,7 +69,7 @@
         {% endfor %}
       </select>
     </div><br>
-    <button class="btn btn-success" type="submit">Submit</button>
+    <button class="btn btn-success" type="submit">Submit</button><br>
     </div>
   </form>
 </body>

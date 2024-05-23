@@ -1,10 +1,3 @@
-body {
-  /* background-image: url("/static/resources/bg-3.jpg");  */
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
 .hero {
   background-image: url('/static/resources/hero1.jpeg');
   background-position: center center;
@@ -19,6 +12,9 @@ body {
     background-image: url('/static/resources/bg-1.jpg');
   }
 } */
+.navbar{
+  position: fixed;
+}
 .navi{
   display: flex;
   margin-left:auto;
@@ -69,15 +65,10 @@ body {
 #bt {
   padding-top: 3%;
 }
-
-
-/* .dropcontainer {
-  appearance: none;
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-} */
+.profile{
+  margin-left: 70%;
+  font-family: Cambria serif;
+}
 
 .page-header {
   color: #25b4b6;

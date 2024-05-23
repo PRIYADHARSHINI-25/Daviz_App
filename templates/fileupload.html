@@ -18,7 +18,12 @@
 }
 body{
   background-image: url("/static/resources/chart-bg-1.jpg");
+  /* background-image: url("/static/resources/bg-2.jpg"); */
   background-repeat: no-repeat;
+}
+.alert{
+  width:max-content;
+  margin-left: 40%;
 }
 </style>
   <body>
@@ -33,10 +38,10 @@ body{
             class="d-inline-block align-text-bottom"
           />
         </a>
-        <li class="nav">
+        <li class="nav profile d-inline-block align-text-bottom">
           {% if user %}
           <img src="{{profile}}" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="img">
-          <br> <pre>{{user}}</pre>
+           {{user}}
         </li>
         <a class="btn btn-color" href="/logout" role="button">Logout</a>
         {% else %}
@@ -46,7 +51,9 @@ body{
       </div>
     </nav>
     {% if user %}
-    <div
+   
+    <div class="card-body">
+      <div
       id="alert"
       class="alert alert-danger"
       role="alert"
@@ -54,7 +61,6 @@ body{
     >
       Please upload file having extensions .csv only.
     </div>
-    <div class="card-body">
       <div class="form-control" id="len">
         <form method="POST" action="/chart" enctype="multipart/form-data">
           <h3 class="page-header">Upload CSV File</h3>

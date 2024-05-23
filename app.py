@@ -86,7 +86,7 @@ def chart():
             option,df,yopt=preprocess(content)
             df_bytes=pickle.dumps(df)
             db.user.update_one({'email_id':email},{'$set':{'dataframe':df_bytes}})
-            types=['line','bar','pie']
+            types=['line','bar','scatter','spline','area','column','areaspline']
             return render_template("input.html",option=option,types=types,yoptions=yopt)
     except:
          return "Not working"
@@ -103,7 +103,7 @@ def visualize():
         charttype=request.form.get("chartType")
         xvar=request.form.get("xvar")
         yvar=request.form.get("yvar")
-        print(xvar, yvar, charttype)
+        # print(xvar, yvar, charttype)
         if xvar and yvar and charttype:
             chart_user= chartvis(df,xvar,yvar,charttype)
             return render_template("chart.html",data=chart_user)
