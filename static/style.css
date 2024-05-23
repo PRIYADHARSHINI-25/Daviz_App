@@ -7,14 +7,7 @@
   color:#ffffff
   /* color:#84e1e1 */
 }
-/* @media only screen and (min-width: 400px) {
-  .hero {
-    background-image: url('/static/resources/bg-1.jpg');
-  }
-} */
-.navbar{
-  position: fixed;
-}
+
 .navi{
   display: flex;
   margin-left:auto;
@@ -29,10 +22,6 @@
 .navi a:hover {
   color: #25b4b6 !important;
 }
-/* .card{
-  background-image: url("/static/resources/bg-4.jpg");
-  background-position: center center; 
-}*/
 
 
 .btn-color {
