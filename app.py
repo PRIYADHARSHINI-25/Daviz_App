@@ -73,6 +73,41 @@ def gsignin():
     except MismatchingStateError:
         flash('This action is not possible. Please try again.')
         return render_template("home.html")
+@app.route("/chart",methods=['GET','POST'])
+def chart():
+    try:
+        user = session.get('user')
+        email=user['email']
+        if request.method=='POST':
+            csvfile=request.files['upload_file']
+            # content.seek(0)
+            content=csvfile.read()
+            option,df,yopt=preprocess(content)
+            df_bytes=pickle.dumps(df)
+            db.user.update_one({'email_id':email},{'$set':{'dataframe':df_bytes}})
+            types=['line','bar','scatter','spline','area','column','areaspline']
+            return render_template("input.html",option=option,types=types,yoptions=yopt)
+    except:
+         return "Not working"
+
+
+@app.route('/visualize',methods=['GET','POST'])
+def visualize():
+    user = session.get('user')
+    email=user['email']
+    document = db.user.find_one({'email_id': email})
+    df_bytes = (document['dataframe'])
+    df = pickle.loads(df_bytes)
+    if request.method=='POST':
+        charttype=request.form.get("chartType")
+        xvar=request.form.get("xvar")
+        yvar=request.form.get("yvar")
+        # print(xvar, yvar, charttype)
+        if xvar and yvar and charttype:
+            chart_user= chartvis(df,xvar,yvar,charttype)
+            return render_template("chart.html",data=chart_user)
+        else:
+            return "Give valid input"
     
 
 
