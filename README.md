@@ -78,7 +78,11 @@ If in case of Queries, chatbot or admin contact can be made.
 
 ![image](https://github.com/PRIYADHARSHINI-25/Daviz_App/assets/162294888/5999fb7d-7e25-4405-9948-1d6c6753c0cf)
 
+## Demo URL
+Website URL: https://daviz.azurewebsites.net/
 
+## Video URL
+Youtube link: https://www.youtube.com/watch?v=Ue_zVfpOPUU
 
 
 
