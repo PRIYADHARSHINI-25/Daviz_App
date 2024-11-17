@@ -1,3 +1,10 @@
+stage('Setup Python Environment') {
+            steps {
+                // Create a Python virtual environment and install dependencies
+                sh 'python3 -m venv venv'  // Create a virtual environment named "venv"
+                sh '. venv/bin/activate && pip install -r requirements.txt'  // Activate and install dependencies
+            }
+        }
 stage('SonarQube Code Analysis') {
             steps {
                 dir("${WORKSPACE}"){
