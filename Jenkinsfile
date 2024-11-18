@@ -12,8 +12,6 @@ agent any
         stage('Setup Python Environment') {
             steps {
                 sh '''
-                    python3 -m venv venv  // Create a virtual environment named "venv"
-                    . venv/bin/activate
                     cd Daviz_App/
                     pip install -r requirements.txt
                 '''
