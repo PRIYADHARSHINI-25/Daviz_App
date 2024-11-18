@@ -1,37 +1,45 @@
-stage('Setup Python Environment') {
+pipeline {
+    agent any
+    environment {
+        scannerHome = tool 'scanner'  // Global declaration if used in multiple stages
+    }
+    
+    stages { 
+        stage('SCM Checkout') {
             steps {
-                // Create a Python virtual environment and install dependencies
-                sh 'python3 -m venv venv'  // Create a virtual environment named "venv"
-                sh '. venv/bin/activate && pip install -r requirements.txt'  // Activate and install dependencies
+                git branch: 'main', url: 'https://github.com/PRIYADHARSHINI-25/Daviz_App'
             }
         }
-stage('SonarQube Code Analysis') {
+        stage('Setup Python Environment') {
             steps {
-                dir("${WORKSPACE}"){
-                // Run SonarQube analysis for Python
-                script {
-                    def scannerHome = tool name: 'scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    withSonarQubeEnv('SonarQube') {
-                        sh "echo $pwd"
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
+                sh '''
+                    python3 -m venv venv  // Create a virtual environment named "venv"
+                    . venv/bin/activate
+                    cd Daviz_App/
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+        stage('Run SonarQube') {
+            steps {
+                withSonarQubeEnv(credentialsId: 'sonar-proj', installationName: 'SonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
-            }
-       }
-       stage("SonarQube Quality Gate Check") {
+        }
+        stage('SonarQube Quality Gate Check') {
             steps {
                 script {
-                def qualityGate = waitForQualityGate()
-                    
+                    def qualityGate = waitForQualityGate()
                     if (qualityGate.status != 'OK') {
-                        echo "${qualityGate.status}"
-                        error "Quality Gate failed: ${qualityGateStatus}"
-                    }
-                    else {
-                        echo "${qualityGate.status}"
+                        echo "Quality Gate Status: ${qualityGate.status}"
+                        error "Quality Gate failed: ${qualityGate.status}"
+                    } else {
+                        echo "Quality Gate Status: ${qualityGate.status}"
                         echo "SonarQube Quality Gates Passed"
                     }
                 }
             }
         }
+    }
+}
