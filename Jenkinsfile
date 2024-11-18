@@ -4,12 +4,6 @@ agent any
         scannerHome = tool 'scanner'  // Global declaration if used in multiple stages
     }
     stages { 
-        stage('Install Python') {
-         steps { 
-            sh 'sudo apt-get update' 
-            sh 'sudo apt-get install -y python3 python3-pip' 
-         } 
-        }
         stage('SCM Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/PRIYADHARSHINI-25/Daviz_App'
