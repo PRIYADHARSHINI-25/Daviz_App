@@ -12,7 +12,6 @@ agent any
         stage('Setup Python Environment') {
             steps {
                 sh '''
-                    cd Daviz_App/
                     pip install -r requirements.txt
                 '''
             }
