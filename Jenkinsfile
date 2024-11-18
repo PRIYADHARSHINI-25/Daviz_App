@@ -3,7 +3,12 @@ agent any
     environment {
         scannerHome = tool 'scanner'  // Global declaration if used in multiple stages
     }
-    
+    stage('Install Python') {
+        steps { 
+            sh 'apt-get update' 
+            sh 'apt-get install -y python3 python3-pip' 
+        } 
+    }
     stages { 
         stage('SCM Checkout') {
             steps {
