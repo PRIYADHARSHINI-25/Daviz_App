@@ -3,10 +3,9 @@ pipeline {
         docker {
             image 'python:3.8' // Use a Python Docker image with Python 3 installed
         }
-    }
-    agent any
     environment {
         scannerHome = tool 'scanner'  // Global declaration if used in multiple stages
+    }
     }
     
     stages { 
