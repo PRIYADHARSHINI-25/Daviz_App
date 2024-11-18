@@ -12,15 +12,13 @@ agent any
         }
         stage('Setup Python Environment') {
             steps {
-                script{
-                docker.image('python:3.8').inside {
                 sh '''
                     python3 -m venv venv  // Create a virtual environment named "venv"
                     . venv/bin/activate
                     cd Daviz_App/
                     pip install -r requirements.txt
                 '''
-            }}}
+            }
         }
         stage('Run SonarQube') {
             steps {
